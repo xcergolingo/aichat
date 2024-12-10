@@ -1,4 +1,4 @@
-<template>
+A<template>
   <div id="app">
     <h1>Chat with Our Bot</h1>
     <div class="chat-container">
@@ -45,12 +45,15 @@ export default {
 
       // Send the message to the backend API
       try {
-        const response = await axios.post('https://your-api-gateway-endpoint', {
-          messages: conversationHistory,
+        const response = await axios.post('https://ifea39qb13.execute-api.us-east-1.amazonaws.com/prod/aichat', {
+          messages: JSON.stringify(conversationHistory),
         });
 
         // Add bot's response to the messages array
-        this.messages.push({ text: response.data.reply, sender: 'bot' });
+       
+        console.log(response)
+        this.messages.push({ text: response.data.body.reply, sender: 'bot' });
+        //this.messages.push({ text: "great", sender: 'bot' });
       } catch (error) {
         console.error(error);
         this.messages.push({ text: 'Sorry, something went wrong.', sender: 'bot' });
